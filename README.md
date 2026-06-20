@@ -3,7 +3,6 @@ Notes for the IDT
 
 Next milestone: minimal IDT
 
-Goal should be tiny again:
 
 Load an IDT
 Trigger a breakpoint interrupt
@@ -33,7 +32,7 @@ The simplest test is interrupt 3, the breakpoint interrupt:
 
 int 3
 
-Eventually your kernel should be able to do:
+Eventually my kernel should be able to do:
 
 idt_initialize();
 terminal_writestring("IDT loaded\n");
@@ -49,8 +48,7 @@ Interrupt received
 Still alive after interrupt
 But before coding IDT
 
-Clean up your repo into this milestone list:
-
+so rn i have
 [T] Boot kernel
 [T] VGA terminal
 [T] GDT
