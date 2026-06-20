@@ -3,7 +3,7 @@ AS     = nasm
 CFLAGS = -std=gnu99 -ffreestanding -O2 -Wall -Wextra -Iinclude
 LFLAGS = -ffreestanding -O2 -nostdlib -lgcc
 
-OBJS = boot/boot.o kernel/kernel.o kernel/terminal.o
+OBJS = boot/boot.o boot/gdt_flush.o kernel/kernel.o kernel/terminal.o kernel/gdt.o
 
 .PHONY: all run clean
 
@@ -11,7 +11,9 @@ all: kernel.elf
 
 kernel.elf: $(OBJS) linker.ld
 	$(CC) -T linker.ld -o $@ $(LFLAGS) $(OBJS)
-
+	
+boot/gdt_flush.o: boot/gdt_flush.asm
+	$(AS) -f elf32 $< -o $@
 boot/boot.o: boot/boot.asm
 	$(AS) -f elf32 $< -o $@
 
