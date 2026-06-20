@@ -1,9 +1,9 @@
 CC     = i686-elf-gcc
 AS     = nasm
-CFLAGS = -std=gnu99 -ffreestanding -O2 -Wall -Wextra
+CFLAGS = -std=gnu99 -ffreestanding -O2 -Wall -Wextra -Iinclude
 LFLAGS = -ffreestanding -O2 -nostdlib -lgcc
 
-OBJS = boot/boot.o kernel/kernel.o
+OBJS = boot/boot.o kernel/kernel.o kernel/terminal.o
 
 .PHONY: all run clean
 
@@ -14,6 +14,9 @@ kernel.elf: $(OBJS) linker.ld
 
 boot/boot.o: boot/boot.asm
 	$(AS) -f elf32 $< -o $@
+
+kernel/terminal.o: kernel/terminal.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
 kernel/kernel.o: kernel/kernel.c
 	$(CC) $(CFLAGS) -c $< -o $@
